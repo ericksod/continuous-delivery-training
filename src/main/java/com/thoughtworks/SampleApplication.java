@@ -13,7 +13,14 @@ public class SampleApplication {
         port(Integer.valueOf(System.getenv("PORT")));
         staticFileLocation("/public");
 
-        get("/hello", (req, res) -> "Hello World");
+        get("/hello/:name", (req, res) -> {
+            String requestedName = req.params(":name");
+
+            if(validateName(requestedName)) {
+                return "Hello " + requestedName + ". You smell mighty fine today";
+            }
+            return "Please input a valid name (under 10 char)";
+        });
 
         get("/", (request, response) -> {
             Map<String, Object> attributes = new HashMap<>();
@@ -21,6 +28,10 @@ public class SampleApplication {
 
             return new ModelAndView(attributes, "index.ftl");
         }, new FreeMarkerEngine());
+    }
+
+    public static boolean validateName(String name) {
+        return name.length() <= 10;
     }
 }
 
