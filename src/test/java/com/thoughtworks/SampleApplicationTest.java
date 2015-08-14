@@ -9,4 +9,10 @@ public class SampleApplicationTest {
     public void shouldTestSomething() {
         assertThat(true).isEqualTo(true);
     }
+
+    @Test
+    public void shouldAddOnePlusOne() {
+        assertThat(1+1).isEqualTo(2);
+    }
 }
+
